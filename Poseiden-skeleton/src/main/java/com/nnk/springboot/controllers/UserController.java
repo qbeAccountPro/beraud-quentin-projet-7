@@ -17,7 +17,7 @@ import javax.validation.Valid;
 @Controller
 public class UserController {
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @RequestMapping("/user/list")
     public String home(Model model)
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @PostMapping("/user/update/{id}")
-    public String updateUser(@PathVariable("id") Integer id, @Valid User user,
+    public String updateUser(@PathVariable("id") int id, @Valid User user,
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "user/update";

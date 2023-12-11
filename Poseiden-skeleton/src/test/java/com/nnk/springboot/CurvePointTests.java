@@ -38,7 +38,7 @@ public class CurvePointTests {
 		Assert.assertTrue(listResult.size() > 0);
 
 		// Delete
-		Integer id = curvePoint.getId();
+		Integer id = (Integer) curvePoint.getId();
 		curvePointRepository.delete(curvePoint);
 		Optional<CurvePoint> curvePointList = curvePointRepository.findById(id);
 		Assert.assertFalse(curvePointList.isPresent());
