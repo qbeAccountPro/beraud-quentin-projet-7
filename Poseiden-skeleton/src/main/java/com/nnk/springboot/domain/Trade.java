@@ -2,23 +2,21 @@ package com.nnk.springboot.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
 
 import jakarta.persistence.Id;
 
 import java.sql.Timestamp;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "trade")
@@ -26,6 +24,7 @@ public class Trade {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "trade_id")
   int tradeId;
 
   @Column(name = "account")
@@ -36,29 +35,24 @@ public class Trade {
   @NotBlank(message = "Must not be null")
   String type;
 
-  @Column(name = "buyQuantity")
+  @Column(name = "buy_quantity")
+  @NotNull(message = "Must not be null")
   @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
   Double buyQuantity;
 
-  @Column(name = "sellQuantity")
-  @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
+  @Column(name = "sell_quantity")
   Double sellQuantity;
 
-  @Column(name = "buyPrice")
-  @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
+  @Column(name = "buy_price")
   Double buyPrice;
 
-  @Column(name = "sellPrice")
-  @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
+  @Column(name = "sell_price")
   Double sellPrice;
 
   @Column(name = "benchmark")
-  @NotBlank(message = "Must not be null")
   String benchmark;
 
-  @Column(name = "tradeDate")
-  @NotBlank(message = "Must not be null")
-  @PastOrPresent(message = "Date must be in the past or present")
+  @Column(name = "trade_date")
   Timestamp tradeDate;
 
   @Column(name = "security")
@@ -73,33 +67,36 @@ public class Trade {
   @Column(name = "book")
   String book;
 
-  @Column(name = "creationName")
+  @Column(name = "creation_name")
   String creationName;
 
-  @Column(name = "creationDate")
-  @PastOrPresent(message = "Date must be in the past or present")
+  @Column(name = "creation_date")
   Timestamp creationDate;
 
-  @Column(name = "revisionName")
+  @Column(name = "revision_name")
   String revisionName;
 
-  @Column(name = "revisionDate")
-  @PastOrPresent(message = "Date must be in the past or present")
+  @Column(name = "revisiondate")
   Timestamp revisionDate;
 
-  @Column(name = "dealName")
+  @Column(name = "dealname")
   String dealName;
 
-  @Column(name = "dealType")
+  @Column(name = "deal_type")
   String dealType;
 
-  @Column(name = "sourceListId")
+  @Column(name = "source_list_id")
   String sourceListId;
 
   @Column(name = "side")
   String side;
 
-  public Trade(String string, String string2) {
+  public Trade(@NotBlank(message = "Must not be null") String account,
+      @NotBlank(message = "Must not be null") String type,
+      @NotNull(message = "Must not be null") @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.") Double buyQuantity) {
+    this.account = account;
+    this.type = type;
+    this.buyQuantity = buyQuantity;
   }
 
 }

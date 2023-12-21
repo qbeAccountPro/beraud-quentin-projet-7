@@ -1,32 +1,31 @@
 package com.nnk.springboot.domain;
 
 import java.sql.Timestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PastOrPresent;
-
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import jakarta.validation.constraints.Digits;
+
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "bidlist")
 public class BidList {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "bidListId")
-  int bidListId;
+  @Column(name = "bid_list_id")
+  int BidListId;
 
   @Column(name = "account")
   @NotBlank(message = "Account is mandatory")
@@ -36,28 +35,25 @@ public class BidList {
   @NotBlank(message = "Type is mandatory")
   String type;
 
-  @Column(name = "bidQuantity")
+  @Column(name = "bid_quantity")
   @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
+  @DecimalMin(value = "0.0", inclusive = false, message = "Bid Quantity must be greater than 0")
+  @NotNull(message = "BidQuantity is mandatory")
   Double bidQuantity;
 
-  @Column(name = "askQuantity")
-  @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
+  @Column(name = "ask_quantity")
   Double askQuantity;
 
   @Column(name = "bid")
-  @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
   Double bid;
 
   @Column(name = "ask")
-  @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
   Double ask;
 
   @Column(name = "benchmark")
   String benchmark;
 
-  @Column(name = "bidListDate")
-  @NotBlank(message = "Must not be null")
-  @PastOrPresent(message = "Date must be in the past or present")
+  @Column(name = "bid_list_date")
   Timestamp bidListDate;
 
   @Column(name = "commentary")
@@ -75,32 +71,42 @@ public class BidList {
   @Column(name = "book")
   String book;
 
-  @Column(name = "creationName")
+  @Column(name = "creation_name")
   String creationName;
 
-  @Column(name = "creationDate")
+  @Column(name = "creation_date")
   Timestamp creationDate;
 
-  @Column(name = "revisionName")
+  @Column(name = "revision_name")
   String revisionName;
 
-  @Column(name = "revisionDate")
-  @NotBlank(message = "Must not be null")
-  @PastOrPresent(message = "Date must be in the past or present")
+  @Column(name = "revision_date")
   Timestamp revisionDate;
 
-  @Column(name = "dealName")
+  @Column(name = "deal_name")
   String dealName;
 
-  @Column(name = "dealType")
+  @Column(name = "deal_type")
   String dealType;
 
-  @Column(name = "sourceListId")
+  @Column(name = "source_list_id")
   String sourceListId;
 
   @Column(name = "side")
   String side;
 
-  public BidList(String string, String string2, double d) {
+  public BidList(
+      @NotBlank(message = "Account is mandatory") 
+      String account,
+      @NotBlank(message = "Type is mandatory") 
+      String type,
+      @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.") 
+      @DecimalMin(value = "0.0", inclusive = false, message = "Bid Quantity must be greater than 0") 
+      @NotNull(message = "BidQuantity is mandatory") 
+      Double bidQuantity) {
+    this.account = account;
+    this.type = type;
+    this.bidQuantity = bidQuantity;
   }
+
 }

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BidListController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">BidListController.java</span></div><h1>BidListController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
+
+import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.services.BidListService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.Optional;
+import javax.validation.Valid;
+
+/**
+ * Controller class for managing BidList entities.
+ * 
+ * Handles CRUD operations for BidList objects, including listing, adding,
+ * updating, and deleting bids.
+ */
+@Controller
+<span class="fc" id="L25">public class BidListController {</span>
+    @Autowired
+    BidListService bidService;
+
+    /**
+     * Some javadoc :
+     * 
+     * This method displays the list of all bid items.
+     *
+     * @param model the model to which attributes are added for rendering in the
+     *              view.
+     * @return String representing the view name for displaying the bid list.
+     */
+    @RequestMapping(&quot;/bidList/list&quot;)
+    public String home(Model model) {
+<span class="fc" id="L40">        model.addAttribute(&quot;authentication&quot;, SecurityContextHolder.getContext().getAuthentication());</span>
+<span class="fc" id="L41">        model.addAttribute(&quot;bidLists&quot;, bidService.findAll());</span>
+<span class="fc" id="L42">        return &quot;bidList/list&quot;;</span>
+    }
+
+    /**
+     * Some javadoc :
+     * 
+     * This method displays the form for adding a new bid.
+     *
+     * @param bid the bidlist object to be added.
+     * @return String representing the view name for displaying the add bid form.
+     */
+    @GetMapping(&quot;/bidList/add&quot;)
+    public String addBidForm(BidList bid) {
+<span class="fc" id="L55">        return &quot;bidList/add&quot;;</span>
+    }
+
+    /**
+     * Some javadoc :
+     * 
+     * This method validates bid data, saves it to the database, and redirects to
+     * the bid list.
+     *
+     * @param bidList the BidList object to be validated and saved.
+     * @param result  the binding result for validation errors.
+     * @param model   the model to which attributes are added for rendering in the
+     *                view.
+     * @return String representing the view name for redirecting to the bid list or
+     *         displaying validation errors.
+     */
+    @PostMapping(&quot;/bidList/validate&quot;)
+    public String validate(@Valid BidList bidList, BindingResult result, Model model) {
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L74">            model.addAttribute(&quot;result&quot;, result);</span>
+<span class="fc" id="L75">            return &quot;bidList/add&quot;;</span>
+        }
+<span class="fc" id="L77">        bidService.saveBidList(bidList);</span>
+<span class="fc" id="L78">        return &quot;redirect:/bidList/list&quot;;</span>
+    }
+
+    /**
+     * Some javadoc :
+     * 
+     * This method displays the form for updating an existing bid.
+     *
+     * @param id    the ID of the bid to be updated.
+     * @param model the model to which attributes are added for rendering in the
+     *              view.
+     * @return String representing the view name for displaying the update bid form.
+     */
+    @GetMapping(&quot;/bidList/update/{id}&quot;)
+    public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+<span class="fc" id="L93">        model.addAttribute(&quot;authentication&quot;, SecurityContextHolder.getContext().getAuthentication());</span>
+<span class="fc" id="L94">        Optional&lt;BidList&gt; optionalBid = bidService.findById(id);</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        if (optionalBid.isPresent()) {</span>
+<span class="fc" id="L96">            model.addAttribute(&quot;bidList&quot;, optionalBid.get());</span>
+<span class="fc" id="L97">            return &quot;bidList/update&quot;;</span>
+        } else {
+<span class="fc" id="L99">            return &quot;404&quot;;</span>
+        }
+    }
+
+    /**
+     * Some javadoc :
+     * 
+     * This method updates bid data, saves it to the database, and redirects to the
+     * bid list.
+     *
+     * @param id      the ID of the bid to be updated.
+     * @param bidList the BidList object with updated data.
+     * @param result  the binding result for validation errors.
+     * @param model   the model to which attributes are added for rendering in the
+     *                view.
+     * @return String representing the view name for redirecting to the bid list or
+     *         displaying validation errors.
+     */
+    @PostMapping(&quot;/bidList/update/{id}&quot;)
+    public String updateBid(@PathVariable(&quot;id&quot;) Integer id, @Valid BidList bidList,
+            BindingResult result, Model model) {
+<span class="fc bfc" id="L120" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L121">            model.addAttribute(&quot;result&quot;, result);</span>
+<span class="fc" id="L122">            return &quot;bidList/update&quot;;</span>
+        }
+<span class="fc" id="L124">        bidService.saveBidList(bidList);</span>
+<span class="fc" id="L125">        return &quot;redirect:/bidList/list&quot;;</span>
+    }
+
+    /**
+     * Some javadoc :
+     * 
+     * This method deletes a bid by its ID and redirects to the bid list.
+     *
+     * @param id the ID of the bid to be deleted.
+     * @return String representing the view name for redirecting to the bid list.
+     */
+    @GetMapping(&quot;/bidList/delete/{id}&quot;)
+    public String deleteBid(@PathVariable(&quot;id&quot;) Integer id) {
+<span class="fc" id="L138">        bidService.deleteBidById(id);</span>
+<span class="fc" id="L139">        return &quot;redirect:/bidList/list&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

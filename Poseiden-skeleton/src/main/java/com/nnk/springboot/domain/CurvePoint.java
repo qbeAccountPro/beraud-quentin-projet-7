@@ -1,26 +1,21 @@
 package com.nnk.springboot.domain;
-/* 
-import org.hibernate.validator.constraints.Length; */
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.Digits;
 
 import jakarta.persistence.Id;
 
 import java.sql.Timestamp;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "curvepoint")
@@ -28,31 +23,33 @@ public class CurvePoint {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
   int id;
 
-  @Column(name = "curveId")
-  @NotBlank(message = "Must not be null")
-  @Digits(integer = Integer.MAX_VALUE, fraction = 0, message = "Must be a valid integer")
-  Integer curveId;
+  @Column(name = "curve_id")
+  int curveId;
 
-  @Column(name = "asOfDate")
-  @NotBlank(message = "Must not be null")
-  @PastOrPresent(message = "Date must be in the past or present")
+  @Column(name = "as_of_date")
   Timestamp asOfDate;
 
   @Column(name = "term")
+  @NotNull(message = "Must not be null")
   @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
   Double term;
 
   @Column(name = "value")
+  @NotNull(message = "Must not be null")
   @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
   Double value;
 
-  @Column(name = "creationDate")
-  @NotBlank(message = "Must not be null")
-  @PastOrPresent(message = "Date must be in the past or present")
+  @Column(name = "creation_date")
   Timestamp creationDate;
 
-  public CurvePoint(int i, double d, double e) {
+  public CurvePoint(int curveId,
+      @NotNull(message = "Must not be null") @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.") Double term,
+      @NotNull(message = "Must not be null") @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.") Double value) {
+    this.curveId = curveId;
+    this.term = term;
+    this.value = value;
   }
 }
