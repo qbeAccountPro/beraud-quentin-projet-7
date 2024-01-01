@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 
@@ -41,12 +42,18 @@ public class Trade {
   Double buyQuantity;
 
   @Column(name = "sell_quantity")
+  @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
+  @DecimalMin(value = "0.00", inclusive = false, message = "Must be greater than 0")
   Double sellQuantity;
 
   @Column(name = "buy_price")
+  @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
+  @DecimalMin(value = "0.00", inclusive = false, message = "Must be greater than 0")
   Double buyPrice;
 
   @Column(name = "sell_price")
+  @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
+  @DecimalMin(value = "0.00", inclusive = false, message = "Must be greater than 0")
   Double sellPrice;
 
   @Column(name = "benchmark")

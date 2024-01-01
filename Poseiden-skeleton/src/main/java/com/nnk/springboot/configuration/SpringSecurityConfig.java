@@ -21,8 +21,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SpringSecurityConfig {
 
-  @Autowired
-  private DataSource dataSource;
+  @Autowired DataSource dataSource;
 
   /**
    * Some javadoc :

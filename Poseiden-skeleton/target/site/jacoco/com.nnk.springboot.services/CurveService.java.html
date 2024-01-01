@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
    * @return List of CurvePoint objects.
    */
   public List&lt;CurvePoint&gt; findAll() {
-<span class="nc" id="L28">    return curvePointRepository.findAll();</span>
+<span class="fc" id="L28">    return curvePointRepository.findAll();</span>
   }
 
   /**
@@ -37,7 +37,7 @@ import org.springframework.stereotype.Service;
    * @return Optional containing the CurvePoint object, or empty if not found.
    */
   public Optional&lt;CurvePoint&gt; findById(Integer id) {
-<span class="nc" id="L40">    return curvePointRepository.findById(id);</span>
+<span class="fc" id="L40">    return curvePointRepository.findById(id);</span>
   }
 
   /**
@@ -48,8 +48,8 @@ import org.springframework.stereotype.Service;
    * @param id the ID of the CurvePoint entity to delete.
    */
   public void deleteById(Integer id) {
-<span class="nc" id="L51">    curvePointRepository.deleteById(id);</span>
-<span class="nc" id="L52">  }</span>
+<span class="fc" id="L51">    curvePointRepository.deleteById(id);</span>
+<span class="fc" id="L52">  }</span>
 
   /**
    * Some javadoc :
@@ -60,7 +60,7 @@ import org.springframework.stereotype.Service;
    * @return The saved or updated CurvePoint object.
    */
   public CurvePoint saveCurvePoint(@Valid CurvePoint curvePoint) {
-<span class="nc" id="L63">    return curvePointRepository.save(curvePoint);</span>
+<span class="fc" id="L63">    return curvePointRepository.save(curvePoint);</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

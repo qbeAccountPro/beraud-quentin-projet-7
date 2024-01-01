@@ -29,7 +29,7 @@ import com.nnk.springboot.repositories.RatingRepository;
    * @return List of Rating objects.
    */
   public List&lt;Rating&gt; findAll() {
-<span class="nc" id="L32">    return ratingRepository.findAll();</span>
+<span class="fc" id="L32">    return ratingRepository.findAll();</span>
   }
 
   /**
@@ -41,7 +41,7 @@ import com.nnk.springboot.repositories.RatingRepository;
    * @return Optional containing the Rating object, or empty if not found.
    */
   public Optional&lt;Rating&gt; findById(Integer id) {
-<span class="nc" id="L44">    return ratingRepository.findById(id);</span>
+<span class="fc" id="L44">    return ratingRepository.findById(id);</span>
   }
 
   /**
@@ -52,8 +52,8 @@ import com.nnk.springboot.repositories.RatingRepository;
    * @param id the ID of the Rating entity to delete.
    */
   public void deleteRating(Integer id) {
-<span class="nc" id="L55">    ratingRepository.deleteById(id);</span>
-<span class="nc" id="L56">  }</span>
+<span class="fc" id="L55">    ratingRepository.deleteById(id);</span>
+<span class="fc" id="L56">  }</span>
 
   /**
    * Some javadoc :
@@ -64,7 +64,7 @@ import com.nnk.springboot.repositories.RatingRepository;
    * @return The saved or updated Rating object.
    */
   public Rating saveRating(@Valid Rating rating) {
-<span class="nc" id="L67">    return ratingRepository.save(rating);</span>
+<span class="fc" id="L67">    return ratingRepository.save(rating);</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

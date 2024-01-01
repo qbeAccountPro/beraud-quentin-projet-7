@@ -27,7 +27,7 @@ import com.nnk.springboot.repositories.RuleNameRepository;
    * @return List of RuleName objects.
    */
   public List&lt;RuleName&gt; findAll() {
-<span class="nc" id="L30">    return ruleNameRepository.findAll();</span>
+<span class="fc" id="L30">    return ruleNameRepository.findAll();</span>
   }
 
   /**
@@ -39,7 +39,7 @@ import com.nnk.springboot.repositories.RuleNameRepository;
    * @return Optional containing the RuleName object, or empty if not found.
    */
   public Optional&lt;RuleName&gt; findById(Integer id) {
-<span class="nc" id="L42">    return ruleNameRepository.findById(id);</span>
+<span class="fc" id="L42">    return ruleNameRepository.findById(id);</span>
   }
 
   /**
@@ -50,8 +50,8 @@ import com.nnk.springboot.repositories.RuleNameRepository;
    * @param id the ID of the RuleName entity to delete.
    */
   public void deleteById(Integer id) {
-<span class="nc" id="L53">    ruleNameRepository.deleteById(id);</span>
-<span class="nc" id="L54">  }</span>
+<span class="fc" id="L53">    ruleNameRepository.deleteById(id);</span>
+<span class="fc" id="L54">  }</span>
 
   /**
    * Some javadoc :
@@ -62,7 +62,7 @@ import com.nnk.springboot.repositories.RuleNameRepository;
    * @return The saved or updated RuleName object.
    */
   public RuleName saveRuleName(RuleName ruleName) {
-<span class="nc" id="L65">    return ruleNameRepository.save(ruleName);</span>
+<span class="fc" id="L65">    return ruleNameRepository.save(ruleName);</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

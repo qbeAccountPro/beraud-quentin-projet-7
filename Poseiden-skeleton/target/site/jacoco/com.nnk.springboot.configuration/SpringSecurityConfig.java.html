@@ -19,10 +19,9 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 @Configuration
 @EnableWebSecurity
-<span class="nc" id="L22">public class SpringSecurityConfig {</span>
+<span class="fc" id="L22">public class SpringSecurityConfig {</span>
 
-  @Autowired
-  private DataSource dataSource;
+  @Autowired DataSource dataSource;
 
   /**
    * Some javadoc :
@@ -31,12 +30,12 @@ import org.springframework.security.web.SecurityFilterChain;
    */
   @Autowired
   public void configAuthentification(AuthenticationManagerBuilder auth) throws Exception {
-<span class="nc" id="L34">    auth.jdbcAuthentication()</span>
-<span class="nc" id="L35">        .passwordEncoder(new BCryptPasswordEncoder())</span>
-<span class="nc" id="L36">        .dataSource(dataSource)</span>
-<span class="nc" id="L37">        .usersByUsernameQuery(&quot;SELECT username, password, 'true' FROM users WHERE username=?&quot;)</span>
-<span class="nc" id="L38">        .authoritiesByUsernameQuery(&quot;SELECT username, 'true' FROM users WHERE username=?&quot;);</span>
-<span class="nc" id="L39">  }</span>
+<span class="fc" id="L33">    auth.jdbcAuthentication()</span>
+<span class="fc" id="L34">        .passwordEncoder(new BCryptPasswordEncoder())</span>
+<span class="fc" id="L35">        .dataSource(dataSource)</span>
+<span class="fc" id="L36">        .usersByUsernameQuery(&quot;SELECT username, password, 'true' FROM users WHERE username=?&quot;)</span>
+<span class="fc" id="L37">        .authoritiesByUsernameQuery(&quot;SELECT username, 'true' FROM users WHERE username=?&quot;);</span>
+<span class="fc" id="L38">  }</span>
 
   /**
    * Some javadoc :
@@ -54,28 +53,28 @@ import org.springframework.security.web.SecurityFilterChain;
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-<span class="nc" id="L57">    http.authorizeHttpRequests(auth -&gt; {</span>
-<span class="nc" id="L58">      auth.requestMatchers(&quot;/bidList/**&quot;).permitAll();</span>
-<span class="nc" id="L59">      auth.requestMatchers(&quot;/curvePoint/**&quot;).permitAll();</span>
-<span class="nc" id="L60">      auth.requestMatchers(&quot;/rating/**&quot;).permitAll();</span>
-<span class="nc" id="L61">      auth.requestMatchers(&quot;/ruleName/**&quot;).permitAll();</span>
-<span class="nc" id="L62">      auth.requestMatchers(&quot;/trade/**&quot;).permitAll();</span>
-<span class="nc" id="L63">      auth.requestMatchers(&quot;/user/**&quot;).permitAll();</span>
-<span class="nc" id="L64">      auth.requestMatchers(&quot;/403&quot;).permitAll();</span>
-<span class="nc" id="L65">      auth.requestMatchers(&quot;/home&quot;).permitAll();</span>
-<span class="nc" id="L66">      auth.requestMatchers(&quot;/css/**&quot;, &quot;/js/**&quot;).permitAll();</span>
-<span class="nc" id="L67">      auth.anyRequest().authenticated();</span>
-<span class="nc" id="L68">    })</span>
-<span class="nc" id="L69">        .logout(logout -&gt; logout</span>
-<span class="nc" id="L70">            .logoutUrl(&quot;/app-logout&quot;)</span>
-<span class="nc" id="L71">            .logoutSuccessUrl(&quot;/login?logout&quot;)</span>
-<span class="nc" id="L72">            .permitAll())</span>
+<span class="fc" id="L56">    http.authorizeHttpRequests(auth -&gt; {</span>
+<span class="fc" id="L57">      auth.requestMatchers(&quot;/bidList/**&quot;).permitAll();</span>
+<span class="fc" id="L58">      auth.requestMatchers(&quot;/curvePoint/**&quot;).permitAll();</span>
+<span class="fc" id="L59">      auth.requestMatchers(&quot;/rating/**&quot;).permitAll();</span>
+<span class="fc" id="L60">      auth.requestMatchers(&quot;/ruleName/**&quot;).permitAll();</span>
+<span class="fc" id="L61">      auth.requestMatchers(&quot;/trade/**&quot;).permitAll();</span>
+<span class="fc" id="L62">      auth.requestMatchers(&quot;/user/**&quot;).permitAll();</span>
+<span class="fc" id="L63">      auth.requestMatchers(&quot;/403&quot;).permitAll();</span>
+<span class="fc" id="L64">      auth.requestMatchers(&quot;/home&quot;).permitAll();</span>
+<span class="fc" id="L65">      auth.requestMatchers(&quot;/css/**&quot;, &quot;/js/**&quot;).permitAll();</span>
+<span class="fc" id="L66">      auth.anyRequest().authenticated();</span>
+<span class="fc" id="L67">    })</span>
+<span class="fc" id="L68">        .logout(logout -&gt; logout</span>
+<span class="fc" id="L69">            .logoutUrl(&quot;/app-logout&quot;)</span>
+<span class="fc" id="L70">            .logoutSuccessUrl(&quot;/login?logout&quot;)</span>
+<span class="fc" id="L71">            .permitAll())</span>
 
-<span class="nc" id="L74">        .formLogin(form -&gt; form</span>
-<span class="nc" id="L75">            .defaultSuccessUrl(&quot;/bidList/list&quot;, true)</span>
-<span class="nc" id="L76">            .permitAll());</span>
+<span class="fc" id="L73">        .formLogin(form -&gt; form</span>
+<span class="fc" id="L74">            .defaultSuccessUrl(&quot;/bidList/list&quot;, true)</span>
+<span class="fc" id="L75">            .permitAll());</span>
 
-<span class="nc" id="L78">    return http.build();</span>
+<span class="fc" id="L77">    return http.build();</span>
   }
 
   /**
@@ -88,7 +87,7 @@ import org.springframework.security.web.SecurityFilterChain;
    */
   @Bean
   public PasswordEncoder passwordEncoder() {
-<span class="nc" id="L91">    return new BCryptPasswordEncoder();</span>
+<span class="fc" id="L90">    return new BCryptPasswordEncoder();</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

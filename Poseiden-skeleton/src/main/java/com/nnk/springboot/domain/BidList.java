@@ -2,20 +2,19 @@ package com.nnk.springboot.domain;
 
 import java.sql.Timestamp;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import jakarta.validation.constraints.Digits;
 
 @Data
 @Entity
@@ -37,17 +36,23 @@ public class BidList {
 
   @Column(name = "bid_quantity")
   @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
-  @DecimalMin(value = "0.0", inclusive = false, message = "Bid Quantity must be greater than 0")
+  @DecimalMin(value = "0.00", inclusive = false, message = "Bid Quantity must be greater than 0")
   @NotNull(message = "BidQuantity is mandatory")
   Double bidQuantity;
 
   @Column(name = "ask_quantity")
+  @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
+  @DecimalMin(value = "0.0", inclusive = false, message = "Must be greater than 0")
   Double askQuantity;
 
   @Column(name = "bid")
+  @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
+  @DecimalMin(value = "0.00", inclusive = false, message = "Must be greater than 0")
   Double bid;
 
   @Column(name = "ask")
+  @Digits(integer = 10, fraction = 2, message = "Only numbers are accepted.")
+  @DecimalMin(value = "0.00", inclusive = false, message = "Must be greater than 0")
   Double ask;
 
   @Column(name = "benchmark")
