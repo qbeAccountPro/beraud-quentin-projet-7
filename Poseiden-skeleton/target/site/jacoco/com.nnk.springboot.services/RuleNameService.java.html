@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RuleNameService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.services</a> &gt; <span class="el_source">RuleNameService.java</span></div><h1>RuleNameService.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.repositories.RuleNameRepository;
+
+/**
+ * Service class for RuleName entities.
+ * Provides methods to perform CRUD operations on RuleName objects.
+ */
+@Service
+<span class="fc" id="L17">public class RuleNameService {</span>
+
+  @Autowired
+  RuleNameRepository ruleNameRepository;
+
+  /**
+   * Some javadoc :
+   * 
+   * Retrieves a list of all RuleName entities.
+   *
+   * @return List of RuleName objects.
+   */
+  public List&lt;RuleName&gt; findAll() {
+<span class="fc" id="L30">    return ruleNameRepository.findAll();</span>
+  }
+
+  /**
+   * Some javadoc :
+   * 
+   * Retrieves a RuleName entity by its ID.
+   *
+   * @param id the ID of the RuleName entity to retrieve.
+   * @return Optional containing the RuleName object, or empty if not found.
+   */
+  public Optional&lt;RuleName&gt; findById(Integer id) {
+<span class="fc" id="L42">    return ruleNameRepository.findById(id);</span>
+  }
+
+  /**
+   * Some javadoc :
+   * 
+   * Deletes a RuleName entity by its ID.
+   *
+   * @param id the ID of the RuleName entity to delete.
+   */
+  public void deleteById(Integer id) {
+<span class="fc" id="L53">    ruleNameRepository.deleteById(id);</span>
+<span class="fc" id="L54">  }</span>
+
+  /**
+   * Some javadoc :
+   * 
+   * Saves or updates a RuleName entity.
+   *
+   * @param ruleName the RuleName object to save or update.
+   * @return The saved or updated RuleName object.
+   */
+  public RuleName saveRuleName(RuleName ruleName) {
+<span class="fc" id="L65">    return ruleNameRepository.save(ruleName);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

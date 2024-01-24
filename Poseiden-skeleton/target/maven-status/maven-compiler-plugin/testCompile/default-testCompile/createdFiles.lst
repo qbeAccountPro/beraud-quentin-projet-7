@@ -1,0 +1,7 @@
+com\nnk\springboot\controllers\RuleNameControllerTest.class
+com\nnk\springboot\controllers\CurveControllerTest.class
+com\nnk\springboot\controllers\RatingControllerTest.class
+com\nnk\springboot\configuration\SpringSecurityConfigTest.class
+com\nnk\springboot\controllers\BidListControllerTest.class
+com\nnk\springboot\controllers\TradeControllerTest.class
+com\nnk\springboot\controllers\UserControllerTest.class

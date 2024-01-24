@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.nnk.springboot.domain.User;
+import com.nnk.springboot.repositories.UserRepository;
+
+/**
+ * Some javadoc :
+ * 
+ * Controller class for managing User entities.
+ * Handles CRUD operations for User objects, including listing, adding,
+ * updating, and deleting users.
+ */
+@Controller
+<span class="fc" id="L27">public class UserController {</span>
+    @Autowired
+    UserRepository userRepository;
+
+    /**
+     * Some javadoc :
+     * 
+     * This method displays the list of all users.
+     *
+     * @param model the model to which attributes are added for rendering in the
+     *              view.
+     * @return String representing the view name for displaying the user list.
+     */
+    @RequestMapping(&quot;/user/list&quot;)
+    public String home(Model model) {
+<span class="fc" id="L42">        model.addAttribute(&quot;authentication&quot;, SecurityContextHolder.getContext().getAuthentication());</span>
+<span class="fc" id="L43">        model.addAttribute(&quot;users&quot;, userRepository.findAll());</span>
+<span class="fc" id="L44">        return &quot;user/list&quot;;</span>
+    }
+
+    /**
+     * Some javadoc :
+     * This method displays the form for adding a new user.
+     *
+     * @param user the User object to be added.
+     * @return String representing the view name for displaying the add user form.
+     */
+    @GetMapping(&quot;/user/add&quot;)
+    public String addUser(User user) {
+<span class="fc" id="L56">        return &quot;user/add&quot;;</span>
+    }
+
+    /**
+     * Some javadoc :
+     * 
+     * This method validates user data, encodes the password, saves it to the
+     * database, and redirects
+     * to the user list.
+     *
+     * @param user   the User object to be validated and saved.
+     * @param result the binding result for validation errors.
+     * @param model  the model to which attributes are added for rendering in the
+     *               view.
+     * @return String representing the view name for redirecting to the user
+     *         list or displaying validation errors.
+     */
+    @PostMapping(&quot;/user/validate&quot;)
+    public String validate(@Valid User user, BindingResult result, Model model) {
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L76">            model.addAttribute(&quot;result&quot;, result);</span>
+<span class="fc" id="L77">            return &quot;user/add&quot;;</span>
+        } else {
+<span class="fc" id="L79">            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
+<span class="fc" id="L80">            user.setPassword(encoder.encode(user.getPassword()));</span>
+<span class="fc" id="L81">            userRepository.save(user);</span>
+<span class="fc" id="L82">            return &quot;redirect:/user/list&quot;;</span>
+        }
+    }
+
+    /**
+     * Some javadoc :
+     * 
+     * This method displays the form for updating an existing user.
+     *
+     * @param id    the ID of the user to be updated.
+     * @param model the model to which attributes are added for rendering in the
+     *              view.
+     * @return String representing the view name for displaying the update user
+     *         form.
+     */
+    @GetMapping(&quot;/user/update/{id}&quot;)
+    public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+<span class="fc" id="L99">        User user = userRepository.findById(id)</span>
+<span class="fc" id="L100">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L101">        user.setPassword(&quot;&quot;);</span>
+<span class="fc" id="L102">        model.addAttribute(&quot;user&quot;, user);</span>
+<span class="fc" id="L103">        return &quot;user/update&quot;;</span>
+    }
+
+    /**
+     * Some javadoc :
+     * 
+     * This method updates user data, encodes the password, saves it to the
+     * database, and redirects
+     * to the user list.
+     *
+     * @param id     the ID of the user to be updated.
+     * @param user   the User object with updated data.
+     * @param result the binding result for validation errors.
+     * @param model  the model to which attributes are added for rendering in the
+     *               view.
+     * @return String representing the view name for redirecting to the user
+     *         list or displaying validation errors.
+     */
+    @PostMapping(&quot;/user/update/{id}&quot;)
+    public String updateUser(@PathVariable(&quot;id&quot;) int id, @Valid User user,
+            BindingResult result, Model model) {
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L125">            return &quot;user/update&quot;;</span>
+        }
+
+<span class="fc" id="L128">        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
+<span class="fc" id="L129">        user.setPassword(encoder.encode(user.getPassword()));</span>
+<span class="fc" id="L130">        user.setId(id);</span>
+<span class="fc" id="L131">        userRepository.save(user);</span>
+<span class="fc" id="L132">        model.addAttribute(&quot;users&quot;, userRepository.findAll());</span>
+<span class="fc" id="L133">        return &quot;redirect:/user/list&quot;;</span>
+    }
+
+    /**
+     * Some javadoc :
+     * 
+     * This method deletes a user by its ID and redirects to the user list.
+     *
+     * @param id    the ID of the user to be deleted.
+     * @param model the model to which attributes are added for rendering in the
+     *              view.
+     * @return String representing the view name for redirecting to the user
+     *         list.
+     */
+    @GetMapping(&quot;/user/delete/{id}&quot;)
+    public String deleteUser(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+<span class="fc" id="L149">        User user = userRepository.findById(id)</span>
+<span class="pc" id="L150">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L151">        userRepository.delete(user);</span>
+<span class="fc" id="L152">        return &quot;redirect:/user/list&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
