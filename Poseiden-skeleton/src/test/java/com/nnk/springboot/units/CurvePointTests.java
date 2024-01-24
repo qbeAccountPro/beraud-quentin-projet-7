@@ -1,5 +1,5 @@
 
-package com.nnk.springboot.integrations;
+package com.nnk.springboot.units;
 
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
