@@ -31,6 +31,7 @@ public class CurveIntegrationTests {
   
   @Autowired
   CurveController curveController;
+  
   @Autowired
   CurveService curveService;
   private MockMvc mvc;

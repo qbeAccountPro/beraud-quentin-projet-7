@@ -2,6 +2,7 @@ package com.nnk.springboot.controllers;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -157,7 +158,6 @@ public class UserControllerTest {
 
   @Test
   void testValidateWithoutError() {
-
     // Arrange
     when(resultValidate.hasErrors()).thenReturn(false);
     String expect = "redirect:/user/list";
@@ -168,6 +168,5 @@ public class UserControllerTest {
     // Assert
     verify(userRepository, times(1)).save(user);
     assertEquals(expect, actual);
-
   }
 }
